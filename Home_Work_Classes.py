@@ -37,7 +37,13 @@ class Student:
             f"Завершенные курсы: {finished_courses_string}"
         return result
     
-    def __eq__(self, student: object) -> bool:
+    def __lt__(self, student):
+        return self.average_grade() < student.average_grade()
+      
+    def __le__(self, student): 
+        return self.average_grade() > student.average_grade()
+    
+    def __eq__(self, student):
         return self.average_grade() == student.average_grade()
 
 
@@ -68,7 +74,13 @@ class Lecturer(Mentor):
         f"Средняя оценка за домашнее задание: {self.average_grade()}"
         return result
     
-    def __eq__(self, lecturer: object) -> bool:
+    def __lt__(self, lecturer):
+        return self.average_grade() < lecturer.average_grade()
+      
+    def __le__(self, lecturer): 
+        return self.average_grade() > lecturer.average_grade()
+    
+    def __eq__(self, lecturer):
         return self.average_grade() == lecturer.average_grade()
 
 
@@ -152,4 +164,6 @@ print(reviewer1)
 print(lecturer)
 
 print(student1.__eq__(student2))
-print(lecturer2.__eq__(lecturer))
+print(lecturer.__eq__(lecturer2))
+print(student1.__lt__(student2))
+print(lecturer.__le__(lecturer2))
