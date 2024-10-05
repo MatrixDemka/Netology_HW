@@ -25,7 +25,7 @@ class Student:
         for i in self.grades.values():
             value.extend(i)
         return round(sum(value)/len(value), 2)
-
+    
     def __str__(self) -> str:
         """метод __str__ выводит тнформацио по данному классу"""
         courses_in_progress_string = ", ".join(self.courses_in_progress)  # Получаем строку курсов
@@ -107,11 +107,16 @@ class Reviewer(Mentor):
 
 #  Создаём двух студентов
 student1 = Student("Anna", "Karenina", 22)
-student1.courses_in_progress += ["Java"] # Первый учится на курсе Java
-student1.finished_courses += ["Python"]
+student1.courses_in_progress += ["Java"]  # Первый учится на курсе Java
+student1.finished_courses += ["Python"]  # Закончил курс Python
 
 student2 = Student("Bob", "Marley", 19)
 student2.courses_in_progress += ["Python"] # Второй учится на курсе Python
+student2.finished_courses += ["Java"]  # Закончил курс Java
+
+student3 = Student("Denia", "Armstrong", 18)
+student3.courses_in_progress += ["Java"]  # Третий учится на курсе Java
+student3.finished_courses += ["Python"]  # Закончил курс Python
 
 #  Создаём двух проверяющих
 reviewer1 = Reviewer("Zigmund", "Freid")
@@ -136,6 +141,10 @@ reviewer1.rate_hw(student1, "Java", 10)
 reviewer2.rate_hw(student2, "Python", 5)
 reviewer2.rate_hw(student2, "Python", 8)
 reviewer2.rate_hw(student2, "Python", 10)
+
+reviewer2.rate_hw(student3, "Python", 3)
+reviewer2.rate_hw(student3, "Python", 6)
+reviewer2.rate_hw(student3, "Python", 8)
 
 # Студент 1 выставляет оценку лектору 2
 student1.rate_lecturer(lecturer2, "Java", 6)
@@ -167,3 +176,16 @@ print(student1.__eq__(student2))
 print(lecturer.__eq__(lecturer2))
 print(student1.__lt__(student2))
 print(lecturer.__le__(lecturer2))
+
+
+all_student_lst = [student1 , student2, student3]
+#all_lecturer_lst = [best_lecturer_1, best_lecturer_2, best_lecturer_3]
+ 
+def get_average_grade(all_student_lst, course_name):
+        count = []
+        for student in all_student_lst:
+            if student.courses_in_progress == [course_name]:
+                count.extend(student)
+        return sum(all_student_lst.average_grade())/len(count)
+
+print(student1.get_average_grade(all_student_lst, 'Python'))
