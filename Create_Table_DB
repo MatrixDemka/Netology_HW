@@ -1,0 +1,57 @@
+CREATE TABLE genre  -- Таблица жанров
+(
+	genre_id int PRIMARY KEY,
+	name text NOT NULL
+);
+
+CREATE TABLE artist  -- Таблица артистов
+(
+	artist_id int PRIMARY KEY,
+	name text NOT NULL
+);
+
+CREATE TABLE artist_genre  -- Промежуточная таблица
+(
+	artist_id int REFERENCES artist(artist_id),
+	genre_id int REFERENCES genre(genre_id),
+
+	CONSTRAINT artist_genre_pkey PRIMARY KEY (artist_id, genre_id)  -- Compisite key 
+);
+
+CREATE TABLE albums  -- Таблица альбомы
+(
+	album_id int PRIMARY KEY,
+	title text NOT NULL,
+	year_release int NOT NULL
+);
+
+CREATE TABLE artist_album  -- Промежуточная таблица
+(
+	artist_id int REFERENCES artist(artist_id),
+	album_id int REFERENCES albums(album_id),
+
+	CONSTRAINT artist_album_pkey PRIMARY KEY (artist_id, album_id)  -- Compisite key 
+);
+
+CREATE TABLE songs  -- Таблица песни
+(
+	song_id int PRIMARY KEY,
+	song_name text NOT NULL,
+	duration real NOT NULL,
+	album_id int NOT NULL
+);
+
+CREATE TABLE music_collection  -- Таблица сборник(музыкальная коллекция)
+(
+	music_collection_id int PRIMARY KEY,
+	title text NOT NULL,
+	year int NOT NULL
+);
+
+CREATE TABLE song_music_col  -- Промежуточная таблица
+(
+	song_id int REFERENCES songs(song_id),
+	music_collection_id int REFERENCES music_collection(music_collection_id),
+
+	CONSTRAINT song_music_col_pkey PRIMARY KEY (song_id, music_collection_id)  -- Compisite key 
+);
